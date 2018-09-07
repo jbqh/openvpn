@@ -43,15 +43,16 @@ def del_user(username):
 def alt_user(username,**args):
 	pass
 
-def get_mysql_connection(cursor_type=1):
-	host = '172.16.172.100'
-	username = 'openvpn'
-	password = 'vdin1234'
+def get_mysql_connection(cursor_type=0):
+	host = mysqlhost
+	username = dbusername
+	password = dbpassword
+	dbname = dbname
 	port = 3306
 	
 	try:
 		conn = MySQLdb.connect(host=host,user=username,passwd=password,db=dbname,port=port)
-		if cursor_type == 1:
+		if cursor_type == 0:
 			cursor = conn.cursor(cursorclass = MySQLdb.cursors.DictCursor)
 		else:
 			cursor = conn.cursor()
