@@ -3,7 +3,7 @@
 
 import MySQLdb
 
-def add_user(username);
+def add_user(username,displayname);
 	cur = get_mysql_connection(1)
 	sql = 'select id from users where username=%s' % username
 	cur.execute(sql)
@@ -23,9 +23,18 @@ def add_user(username);
 	except Exception as e
 		print e
 		exit(20)
+	conn.close()
 	
 def del_user(username):
-	pass
+	cur = get_mysql_connection(1)
+	sql = 'delete from users where username=%s' % username
+	try:
+		cur.execute(sql)
+		return 0
+	except Exception as e:
+		print e
+		return(20)
+	conn.close()
 	
 def alt_user(username,**args):
 	pass
