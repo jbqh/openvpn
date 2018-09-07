@@ -5,8 +5,8 @@ create database if not exists openvpn;
 grant all privileges on openvepn.* to 'openvpn'@'localhost' identified by 'vdin1234';
 grant all privileges on openvepn.* to 'openvepn'@'172.16.172.%' identified by 'vdin1234';
 
-drop table if exists openvpn.user;
-create table if not exists openvpn.user (
+drop table if exists openvpn.users;
+create table if not exists openvpn.users (
 	id int(11) unsigned auto_increment,
 	username varchar(20) not null,
 	password varchar(50) not null default '',
