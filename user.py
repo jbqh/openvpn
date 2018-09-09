@@ -35,7 +35,7 @@ def add_user(username):
 	cur.execute(sql)
 	rst = cur.fetchall()
 	if rst:
-		print 'User %s is already exist, Exit!'
+		print 'User [ %s ] is already exist, Exit!' % username
 		exit(10)
 	sj = time.strftime('%F %T')
 	display_name = display_name
