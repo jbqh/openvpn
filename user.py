@@ -45,7 +45,7 @@ def add_user(username):
 	try:
 		cur.execute(sql)
 		return 0
-	except Exception as e
+	except Exception as e:
 		print e
 		exit(20)
 	conn.close()
@@ -82,7 +82,7 @@ def users(args):
 	argnum = len(args)
 	if cmd == 'add':
 		if argnum == 4:
-			add_user(% sys.argv[3])
+			add_user(sys.argv[3])
 		else:
 			print 'Args Error,command add need 1 args'
 			exit(10)
@@ -96,7 +96,7 @@ def users(args):
 	
 	if cmd == 'show':
 		if argnum == 4:
-		show_user(sys.argv[3])
+			show_user(sys.argv[3])
 		else:
 			print 'Args Error,command show need 1 args'
 			exit(10)
