@@ -3,10 +3,11 @@ import MySQLdb
 import user_ldap
 
 def get_mysql_connection(cursor_type=1):
-	host = '172.16.172.100'
-	username = 'openvpn'
-	password = 'vdin1234'
-	port = 3306
+	host = DBHOST
+	username = DBUSER
+	password = DBPASSWORD
+	dbname = DBNAME
+	port = DBPORT
 	
 	try:
 		conn = MySQLdb.connect(host=host,user=username,passwd=password,db=dbname,port=port)
@@ -30,7 +31,7 @@ def add_user(username):
 	display_name = t.split('=')[1]
 	
 	cur = get_mysql_connection(1)
-	sql = 'select id from users where username=%s' % username
+	sql = 'select id from users where username="%s"' % username
 	cur.execute(sql)
 	rst = cur.fetchall()
 	if rst:
@@ -41,7 +42,7 @@ def add_user(username):
 	allow_login = sj
 	last_login = sj
 	
-	sql = 'insert into users(username,display_name,allow_login,last_login) values (%s %s %s %s)' % (username,display_name,allow_login,last_login)
+	sql = 'insert into users(username,display_name,allow_login,last_login) values ("%"s,"%s","%s","%s")' % (username,display_name,allow_login,last_login)
 	try:
 		cur.execute(sql)
 		return 0
@@ -52,7 +53,7 @@ def add_user(username):
 	
 def del_user(username):
 	cur = get_mysql_connection(1)
-	sql = 'delete from users where username=%s' % username
+	sql = 'delete from users where username="%s"' % username
 	try:
 		cur.execute(sql)
 		return 0
