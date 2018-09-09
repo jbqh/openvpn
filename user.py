@@ -10,19 +10,19 @@ def get_mysql_connection(cursor_type=1):
 	port = DBPORT
 	
 	try:
-		conn = MySQLdb.connect(host=host,user=username,passwd=password,db=dbname,port=port)
+		conn = MySQLdb.connect(host=host,user=username,passwd=password,db=dbname,port=port,use_unicode=True, charset="utf8")
 		if cursor_type == 0:
 			cursor = conn.cursor(cursorclass = MySQLdb.cursors.DictCursor)
 		else:
 			cursor = conn.cursor()
-		return cursor
+		return cursor,conn
 	
 	except Exception as e:
 		print e
 		exit(1)
 		
 def add_user(username):
-	rst = user_ldap.get_dn(username)
+	(rst,conn) = user_ldap.get_dn(username)
 	if rst is None:
 		print 'User %s is not exists,please check it!' % username
 		exit(20)
@@ -45,9 +45,11 @@ def add_user(username):
 	sql = 'insert into users(username,display_name,allow_login,last_login) values ("%"s,"%s","%s","%s")' % (username,display_name,allow_login,last_login)
 	try:
 		cur.execute(sql)
+		conn.commit()
 		return 0
 	except Exception as e:
 		print e
+		conn.rollback()
 		exit(20)
 	conn.close()
 	
@@ -56,9 +58,11 @@ def del_user(username):
 	sql = 'delete from users where username="%s"' % username
 	try:
 		cur.execute(sql)
+		conn.commit()
 		return 0
 	except Exception as e:
 		print e
+		conn.rollback()
 		return(20)
 	conn.close()
 	
