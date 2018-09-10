@@ -48,8 +48,8 @@ create table if not exists openvpn.logs (
 drop table if exists openvpn.routes;
 create table if not exists openvpn.routes (
 	id int(11) unsigned auto_increment,
-	network char(13) not null default '0.0.0.0',
-	net_prefix tinyint not null default 24,
+	network char(15) not null default '0.0.0.0',
+	mask char(15) not null default '255.255.255.0',
 	used varchar(255) not null,
 	primary key (id)
 	) engine=innodb;
