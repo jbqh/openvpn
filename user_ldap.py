@@ -5,10 +5,10 @@ import sys
 import os
 import ldap
 
-ldapServer = 'ldap://10.33.64.30:389'
-baseDN = 'dc=VDIN,dc=local'
-bindDN = 'cn=mantis,ou=vCAC,dc=VDIN,dc=local'
-bindPassword = '123456'
+ldapServer = 'IP:389'
+baseDN = 'dc=,dc='
+bindDN = 'cn=,ou=,dc=,dc='
+bindPassword = ''
 searchFilter = '(sAMAccountName=%s)'
 ldap.set_option(ldap.OPT_REFERRALS,0)
 
